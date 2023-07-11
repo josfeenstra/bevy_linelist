@@ -17,7 +17,12 @@ fn setup(
 ) {
     commands.spawn(PolylineBundle {
         polyline: polylines.add(Polyline {
-            vertices: vec![-Vec3::ONE, Vec3::ONE],
+            vertices: vec![
+                -Vec3::ONE,
+                Vec3::ONE,
+                Vec3::new(2.0, 0.0, 0.0),
+                Vec3::new(4.0, 0.0, 0.0),
+            ],
         }),
         material: polyline_materials.add(PolylineMaterial {
             width: 10.0,
@@ -30,7 +35,7 @@ fn setup(
 
     // camera
     commands.spawn(Camera3dBundle {
-        transform: Transform::from_xyz(0.0, 0.0, 2.0).looking_at(Vec3::ZERO, Vec3::Y),
+        transform: Transform::from_xyz(0.0, 0.0, 4.0).looking_at(Vec3::ZERO, Vec3::Y),
         camera: Camera {
             hdr: true,
             ..default()

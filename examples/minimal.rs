@@ -16,10 +16,10 @@ fn setup(
 ) {
     commands.spawn(PolylineBundle {
         polyline: polylines.add(Polyline {
-            vertices: vec![-Vec3::ONE, Vec3::ONE],
+            vertices: vec![-Vec3::ONE, Vec3::ONE, Vec3::new(0.0, 1.0, 0.0)],
         }),
         material: polyline_materials.add(PolylineMaterial {
-            width: 10.0,
+            width: 2.0,
             color: Color::RED,
             perspective: false,
             ..default()

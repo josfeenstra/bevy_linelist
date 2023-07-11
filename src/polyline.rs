@@ -22,6 +22,12 @@ use bevy::{
     },
 };
 
+/// if true, use the polyline as a LineList
+const IS_LIST: bool = true;
+
+/// Vert count of a segment
+const VERT_COUNT: u32 = 6;
+
 pub struct PolylineBasePlugin;
 
 impl Plugin for PolylineBasePlugin {
@@ -197,6 +203,12 @@ impl SpecializedRenderPipeline for PolylinePipeline {
     type Key = PolylinePipelineKey;
 
     fn specialize(&self, key: Self::Key) -> RenderPipelineDescriptor {
+        let array_stride = if IS_LIST {
+            VERT_COUNT as u64 * 4
+        } else {
+            VERT_COUNT as u64 * 2
+        };
+
         let vertex_attributes = vec![
             VertexAttribute {
                 format: VertexFormat::Float32x3,
@@ -205,7 +217,7 @@ impl SpecializedRenderPipeline for PolylinePipeline {
             },
             VertexAttribute {
                 format: VertexFormat::Float32x3,
-                offset: 12,
+                offset: VERT_COUNT as u64 * 2,
                 shader_location: 1,
             },
         ];
@@ -245,7 +257,7 @@ impl SpecializedRenderPipeline for PolylinePipeline {
                 entry_point: "vertex".into(),
                 shader_defs: shader_defs.clone(),
                 buffers: vec![VertexBufferLayout {
-                    array_stride: 12,
+                    array_stride,
                     step_mode: VertexStepMode::Instance,
                     attributes: vertex_attributes,
                 }],
@@ -425,8 +437,14 @@ impl<P: PhaseItem> RenderCommand<P> for DrawPolyline {
     ) -> RenderCommandResult {
         if let Some(gpu_polyline) = polylines.into_inner().get(pl_handle) {
             pass.set_vertex_buffer(0, gpu_polyline.vertex_buffer.slice(..));
-            let num_instances = gpu_polyline.vertex_count.max(1) - 1;
-            pass.draw(0..6, 0..num_instances);
+
+            let num_instances = if IS_LIST {
+                (gpu_polyline.vertex_count / 2).max(1)
+            } else {
+                gpu_polyline.vertex_count.max(1) - 1
+            };
+
+            pass.draw(0..VERT_COUNT, 0..num_instances);
             RenderCommandResult::Success
         } else {
             RenderCommandResult::Failure
