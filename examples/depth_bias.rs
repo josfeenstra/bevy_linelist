@@ -2,7 +2,7 @@ use std::f32::consts::TAU;
 use std::f64::consts::TAU as TAU64;
 
 use bevy::prelude::*;
-use bevy_polyline::prelude::*;
+use bevy_linelist::prelude::*;
 
 // This example demonstrates how to use the `depth_bias` field on `PolylineMaterial`
 //

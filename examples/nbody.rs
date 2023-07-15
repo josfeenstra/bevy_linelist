@@ -5,7 +5,7 @@ use bevy::{
     math::Vec3A,
     prelude::*,
 };
-use bevy_polyline::prelude::*;
+use bevy_linelist::prelude::*;
 
 use lazy_static::*;
 use rand::{prelude::*, Rng};

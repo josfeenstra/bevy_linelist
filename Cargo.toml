@@ -1,8 +1,8 @@
 [package]
 edition = "2021"
-name = "bevy_polyline"
+name = "bevy_linelist"
 version = "0.7.0"
-description = "Polyline Rendering for Bevy"
+description = "Line Rendering for Bevy"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/ForesightMiningSoftwareCorporation/bevy_polyline"
 homepage = "https://github.com/ForesightMiningSoftwareCorporation/bevy_polyline"
@@ -10,11 +10,7 @@ documentation = "https://docs.rs/bevy_polyline"
 readme = "README.md"
 keywords = ["bevy", "gamedev", "polyline", "graphics"]
 categories = ["rendering", "game-development"]
-authors = [
-    "Foresight Mining Software Corporation",
-    "Jonas Matser",
-    "Aevyrie Roessler",
-]
+authors = ["Jonas Matser", "Aevyrie Roessler"]
 
 [dependencies]
 bitflags = "2.3"

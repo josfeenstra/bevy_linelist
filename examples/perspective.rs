@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy_polyline::prelude::*;
+use bevy_linelist::prelude::*;
 
 fn main() {
     App::new()
